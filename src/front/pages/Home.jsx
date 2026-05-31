@@ -1,52 +1,67 @@
-import React, { useEffect } from "react"
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import React from "react";
 
 export const Home = () => {
-
-	const { store, dispatch } = useGlobalReducer()
-
-	const loadMessage = async () => {
-		try {
-			const backendUrl = import.meta.env.VITE_BACKEND_URL
-
-			if (!backendUrl) throw new Error("VITE_BACKEND_URL is not defined in .env file")
-
-			const response = await fetch(backendUrl + "/api/hello")
-			const data = await response.json()
-
-			if (response.ok) dispatch({ type: "set_hello", payload: data.message })
-
-			return data
-
-		} catch (error) {
-			if (error.message) throw new Error(
-				`Could not fetch the message from the backend.
-				Please check if the backend is running and the backend port is public.`
-			);
-		}
-
-	}
-
-	useEffect(() => {
-		loadMessage()
-	}, [])
-
 	return (
-		<div className="text-center mt-5">
-			<h1 className="display-4">Hello Rigo!!</h1>
-			<p className="lead">
-				<img src={rigoImageUrl} className="img-fluid rounded-circle mb-3" alt="Rigo Baby" />
-			</p>
-			<div className="alert alert-info">
-				{store.message ? (
-					<span>{store.message}</span>
-				) : (
-					<span className="text-danger">
-						Loading message from the backend (make sure your python 🐍 backend is running)...
-					</span>
-				)}
+		<div className="container text-center">
+
+			<div className="py-5 mt-5">
+				<h1 className="display-1 fw-bold">
+					🔐 Authentication App
+				</h1>
+
+				<p className="lead mt-4">
+					Sistema de autenticación desarrollado con
+					React, Flask y JWT.
+				</p>
+
+				<p className="text-secondary">
+					Registro, inicio de sesión y rutas protegidas mediante tokens JWT.
+				</p>
 			</div>
+
+			<div className="row mt-5 g-4">
+
+				<div className="col-md-4">
+					<div className="card h-100 shadow">
+						<div className="card-body">
+							<h3>🔒 Seguridad</h3>
+							<p>
+								Protección de rutas mediante JWT y validación de usuarios.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div className="col-md-4">
+					<div className="card h-100 shadow">
+						<div className="card-body">
+							<h3>⚡ React</h3>
+							<p>
+								Interfaz rápida y moderna construida con React.
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div className="col-md-4">
+					<div className="card h-100 shadow">
+						<div className="card-body">
+							<h3>🐍 Flask</h3>
+							<p>
+								Backend REST API desarrollado con Flask y SQLAlchemy.
+							</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div className="mt-5">
+				<p className="text-muted">
+					Developed by Marc
+				</p>
+			</div>
+
 		</div>
 	);
-}; 
+};
